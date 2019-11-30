@@ -14,12 +14,15 @@
     "start": "cross-env NODE_ENV=development webpack-dev-server --config demo/webpack.config.js",
     "semantic-release": "semantic-release",
     "test": "jest",
-    "now-build": "webpack --config demo/webpack.config.js"
+    "now-build": "webpack --config demo/webpack.config.js",
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/signavio/react-mentions.git"
   },
+  "precommit": [
+    "build"
+  ],
   "keywords": [
     "react",
     "mentions",
