@@ -14,11 +14,11 @@
     "start": "cross-env NODE_ENV=development webpack-dev-server --config demo/webpack.config.js",
     "semantic-release": "semantic-release",
     "test": "jest",
-    "now-build": "webpack --config demo/webpack.config.js",
+    "now-build": "webpack --config demo/webpack.config.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/signavio/react-mentions.git"
+    "url": "https://github.com/giorgi-omiadze/react-mentions"
   },
   "precommit": [
     "build"
@@ -37,9 +37,9 @@
   "author": "Jan-Felix Schwarz",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/signavio/react-mentions/issues"
+    "url": "https://github.com/giorgi-omiadze/react-mentions/issues"
   },
-  "homepage": "https://github.com/signavio/react-mentions",
+  "homepage": "https://github.com/giorgi-omiadze/react-mentions",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
