@@ -76,6 +76,7 @@ const propTypes = {
   ignoreAccents: PropTypes.bool,
 
   value: PropTypes.string,
+  suggestionsClassName: PropTypes.string,
   onKeyDown: PropTypes.func,
   onSelect: PropTypes.func,
   onBlur: PropTypes.func,
@@ -249,6 +250,7 @@ class MentionsInput extends React.Component {
 
     const suggestionsNode = (
       <SuggestionsOverlay
+        className={this.props.suggestionsClassName}
         style={this.props.style('suggestions')}
         position={this.state.suggestionsPosition}
         focusIndex={this.state.focusIndex}
