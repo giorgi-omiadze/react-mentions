@@ -810,6 +810,7 @@ var makeTriggerRegex = function(trigger) {
   allowSuggestionsAboveCursor: PropTypes.bool,
   ignoreAccents: PropTypes.bool,
   value: PropTypes.string,
+  suggestionsClassName: PropTypes.string,
   onKeyDown: PropTypes.func,
   onSelect: PropTypes.func,
   onBlur: PropTypes.func,
@@ -855,6 +856,7 @@ var makeTriggerRegex = function(trigger) {
     }), _defineProperty(_assertThisInitialized(_this), "renderSuggestionsOverlay", function() {
       if (!isNumber(_this.state.selectionStart)) return null;
       var suggestionsNode = React__default.createElement(SuggestionsOverlay$1, {
+        className: _this.props.suggestionsClassName,
         style: _this.props.style("suggestions"),
         position: _this.state.suggestionsPosition,
         focusIndex: _this.state.focusIndex,

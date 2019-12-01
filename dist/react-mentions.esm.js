@@ -1202,6 +1202,7 @@ var propTypes = {
   allowSuggestionsAboveCursor: PropTypes.bool,
   ignoreAccents: PropTypes.bool,
   value: PropTypes.string,
+  suggestionsClassName: PropTypes.string,
   onKeyDown: PropTypes.func,
   onSelect: PropTypes.func,
   onBlur: PropTypes.func,
@@ -1286,6 +1287,7 @@ function (_React$Component) {
       }
 
       var suggestionsNode = React.createElement(SuggestionsOverlay$1, {
+        className: _this.props.suggestionsClassName,
         style: _this.props.style('suggestions'),
         position: _this.state.suggestionsPosition,
         focusIndex: _this.state.focusIndex,
