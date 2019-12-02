@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import React, { Children, Component } from 'react'
 import {
   applyChangeToValue,
   countSuggestions,
@@ -274,8 +274,11 @@ class MentionsInput extends React.Component {
       </SuggestionsOverlay>
     )
     if (this.props.suggestionsPortalHost) {
+      const { suggestionsWrapper } = this.props
+      const Parent = suggestionsWrapper || Component.div
+      const suggestions = <Parent>{suggestionsNode}</Parent>
       return ReactDOM.createPortal(
-        suggestionsNode,
+        suggestions,
         this.props.suggestionsPortalHost
       )
     } else {

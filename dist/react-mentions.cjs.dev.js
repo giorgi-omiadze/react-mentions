@@ -1317,7 +1317,10 @@ function (_React$Component) {
       }, _this.props.children);
 
       if (_this.props.suggestionsPortalHost) {
-        return ReactDOM.createPortal(suggestionsNode, _this.props.suggestionsPortalHost);
+        var suggestionsWrapper = _this.props.suggestionsWrapper;
+        var Parent = suggestionsWrapper || React.Component.div;
+        var suggestions = React__default.createElement(Parent, null, suggestionsNode);
+        return ReactDOM.createPortal(suggestions, _this.props.suggestionsPortalHost);
       } else {
         return suggestionsNode;
       }

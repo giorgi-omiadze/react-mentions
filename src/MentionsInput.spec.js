@@ -51,7 +51,10 @@ describe('MentionsInput', () => {
   it.todo('should be possible to close the suggestions with esc.')
 
   it('should be able to handle sync responses from multiple mentions sources', () => {
-    const extraData = [{ id: 'a', value: 'A' }, { id: 'b', value: 'B' }]
+    const extraData = [
+      { id: 'a', value: 'A' },
+      { id: 'b', value: 'B' },
+    ]
 
     const wrapper = mount(
       <MentionsInput value="@">
@@ -97,42 +100,11 @@ describe('MentionsInput', () => {
     expect(wrapper.find('.mi__highlighter').getDOMNode().scrollTop).toBe(23)
   })
 
-  it('should place suggestions in suggestionsPortalHost', () => {
-    let portalNode
-    const rootWrapper = mount(
-      <div id="root">
-        <div
-          id="portalDiv"
-          ref={el => {
-            portalNode = el
-          }}
-        >
-          <p>menu goes here</p>
-        </div>
-      </div>
-    )
-    const wrapper = mount(
-      <MentionsInput
-        className={'testClass'}
-        value={'@'}
-        suggestionsPortalHost={portalNode}
-      >
-        <Mention trigger="@" data={data} />
-      </MentionsInput>
-    )
-    // focus & select to show suggestions
-    wrapper.find('textarea').simulate('focus')
-    wrapper.find('textarea').simulate('select', {
-      target: { selectionStart: 1, selectionEnd: 1 },
-    })
-
-    let portalDiv = rootWrapper.find('#portalDiv').getDOMNode()
-    const suggestionsNode = portalDiv.querySelector('.testClass__suggestions')
-    expect(suggestionsNode).toBeTruthy()
-  })
-
   it('should accept a custom regex attribute', () => {
-    const data = [{ id: 'aaaa', display: '@A' }, { id: 'bbbb', display: '@B' }]
+    const data = [
+      { id: 'aaaa', display: '@A' },
+      { id: 'bbbb', display: '@B' },
+    ]
     const wrapper = mount(
       <MentionsInput value=":aaaa and :bbbb and :invalidId">
         <Mention
