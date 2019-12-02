@@ -247,10 +247,10 @@ class MentionsInput extends React.Component {
       // do not show suggestions when the input does not have the focus
       return null
     }
-
+    const { suggestionsClassName } = this.props
     const suggestionsNode = (
       <SuggestionsOverlay
-        className={this.props.suggestionsClassName}
+        suggestionsClassName={suggestionsClassName}
         style={this.props.style('suggestions')}
         position={this.state.suggestionsPosition}
         focusIndex={this.state.focusIndex}
@@ -275,8 +275,11 @@ class MentionsInput extends React.Component {
     )
     if (this.props.suggestionsPortalHost) {
       const { suggestionsWrapper } = this.props
-      const Parent = suggestionsWrapper || Component.div
-      const suggestions = <Parent>{suggestionsNode}</Parent>
+      const suggestions = suggestionsWrapper ? (
+        <suggestionsWrapper>{suggestionsNode}</suggestionsWrapper>
+      ) : (
+        suggestionsNode
+      )
       return ReactDOM.createPortal(
         suggestions,
         this.props.suggestionsPortalHost

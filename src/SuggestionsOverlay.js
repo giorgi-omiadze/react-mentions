@@ -14,7 +14,7 @@ class SuggestionsOverlay extends Component {
     isLoading: PropTypes.bool,
     onSelect: PropTypes.func,
     ignoreAccents: PropTypes.bool,
-
+    suggestionsClassName: PropTypes.string,
     children: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.arrayOf(PropTypes.element),
@@ -51,15 +51,24 @@ class SuggestionsOverlay extends Component {
   }
 
   render() {
-    const { suggestions, isLoading, style, onMouseDown } = this.props
+    const {
+      suggestions,
+      isLoading,
+      style,
+      onMouseDown,
+      suggestionsClassName,
+    } = this.props
 
     // do not show suggestions until there is some data
     if (countSuggestions(suggestions) === 0 && !isLoading) {
       return null
     }
-
     return (
-      <div {...style} onMouseDown={onMouseDown}>
+      <div
+        className={suggestionsClassName}
+        {...style}
+        onMouseDown={onMouseDown}
+      >
         <ul
           ref={el => {
             this.suggestionsRef = el

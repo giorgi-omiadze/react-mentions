@@ -1024,13 +1024,16 @@ function (_Component) {
           suggestions = _this$props.suggestions,
           isLoading = _this$props.isLoading,
           style = _this$props.style,
-          onMouseDown = _this$props.onMouseDown; // do not show suggestions until there is some data
+          onMouseDown = _this$props.onMouseDown,
+          suggestionsClassName = _this$props.suggestionsClassName; // do not show suggestions until there is some data
 
       if (countSuggestions(suggestions) === 0 && !isLoading) {
         return null;
       }
 
-      return React__default.createElement("div", _extends({}, style, {
+      return React__default.createElement("div", _extends({
+        className: suggestionsClassName
+      }, style, {
         onMouseDown: onMouseDown
       }), React__default.createElement("ul", _extends({
         ref: function ref(el) {
@@ -1124,6 +1127,7 @@ _defineProperty(SuggestionsOverlay, "propTypes", {
   isLoading: PropTypes.bool,
   onSelect: PropTypes.func,
   ignoreAccents: PropTypes.bool,
+  suggestionsClassName: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]).isRequired
 });
 
@@ -1294,8 +1298,9 @@ function (_React$Component) {
         return null;
       }
 
+      var suggestionsClassName = _this.props.suggestionsClassName;
       var suggestionsNode = React__default.createElement(SuggestionsOverlay$1, {
-        className: _this.props.suggestionsClassName,
+        suggestionsClassName: suggestionsClassName,
         style: _this.props.style('suggestions'),
         position: _this.state.suggestionsPosition,
         focusIndex: _this.state.focusIndex,
@@ -1318,8 +1323,7 @@ function (_React$Component) {
 
       if (_this.props.suggestionsPortalHost) {
         var suggestionsWrapper = _this.props.suggestionsWrapper;
-        var Parent = suggestionsWrapper || React.Component.div;
-        var suggestions = React__default.createElement(Parent, null, suggestionsNode);
+        var suggestions = suggestionsWrapper ? React__default.createElement("suggestionsWrapper", null, suggestionsNode) : suggestionsNode;
         return ReactDOM.createPortal(suggestions, _this.props.suggestionsPortalHost);
       } else {
         return suggestionsNode;

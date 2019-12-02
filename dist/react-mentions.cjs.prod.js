@@ -663,8 +663,10 @@ var SuggestionsOverlay = function(_Component) {
   }, {
     key: "render",
     value: function() {
-      var _this = this, _this$props = this.props, suggestions = _this$props.suggestions, isLoading = _this$props.isLoading, style = _this$props.style, onMouseDown = _this$props.onMouseDown;
-      return 0 !== countSuggestions(suggestions) || isLoading ? React__default.createElement("div", _extends({}, style, {
+      var _this = this, _this$props = this.props, suggestions = _this$props.suggestions, isLoading = _this$props.isLoading, style = _this$props.style, onMouseDown = _this$props.onMouseDown, suggestionsClassName = _this$props.suggestionsClassName;
+      return 0 !== countSuggestions(suggestions) || isLoading ? React__default.createElement("div", _extends({
+        className: suggestionsClassName
+      }, style, {
         onMouseDown: onMouseDown
       }), React__default.createElement("ul", _extends({
         ref: function(el) {
@@ -737,6 +739,7 @@ _defineProperty(SuggestionsOverlay, "propTypes", {
   isLoading: PropTypes.bool,
   onSelect: PropTypes.func,
   ignoreAccents: PropTypes.bool,
+  suggestionsClassName: PropTypes.string,
   children: PropTypes.oneOfType([ PropTypes.element, PropTypes.arrayOf(PropTypes.element) ]).isRequired
 }), _defineProperty(SuggestionsOverlay, "defaultProps", {
   suggestions: {},
@@ -855,8 +858,8 @@ var makeTriggerRegex = function(trigger) {
       "function" == typeof inputRef ? inputRef(el) : inputRef && (inputRef.current = el);
     }), _defineProperty(_assertThisInitialized(_this), "renderSuggestionsOverlay", function() {
       if (!isNumber(_this.state.selectionStart)) return null;
-      var suggestionsNode = React__default.createElement(SuggestionsOverlay$1, {
-        className: _this.props.suggestionsClassName,
+      var suggestionsClassName = _this.props.suggestionsClassName, suggestionsNode = React__default.createElement(SuggestionsOverlay$1, {
+        suggestionsClassName: suggestionsClassName,
         style: _this.props.style("suggestions"),
         position: _this.state.suggestionsPosition,
         focusIndex: _this.state.focusIndex,
@@ -877,7 +880,7 @@ var makeTriggerRegex = function(trigger) {
         ignoreAccents: _this.props.ignoreAccents
       }, _this.props.children);
       if (_this.props.suggestionsPortalHost) {
-        var Parent = _this.props.suggestionsWrapper || React.Component.div, suggestions = React__default.createElement(Parent, null, suggestionsNode);
+        var suggestions = _this.props.suggestionsWrapper ? React__default.createElement("suggestionsWrapper", null, suggestionsNode) : suggestionsNode;
         return ReactDOM.createPortal(suggestions, _this.props.suggestionsPortalHost);
       }
       return suggestionsNode;

@@ -100,6 +100,42 @@ describe('MentionsInput', () => {
     expect(wrapper.find('.mi__highlighter').getDOMNode().scrollTop).toBe(23)
   })
 
+  it('should place suggestionsClassName as suggestions className', () => {
+    let portalNode
+    const rootWrapper = mount(
+      <div id="root">
+        <div
+          id="portalDiv"
+          ref={el => {
+            portalNode = el
+          }}
+        >
+          <p>menu goes here</p>
+        </div>
+      </div>
+    )
+    const wrapper = mount(
+      <MentionsInput
+        className={'testClass'}
+        value={'@'}
+        suggestionsPortalHost={portalNode}
+        suggestionsClassName="suggestionsClassName"
+      >
+        <Mention trigger="@" data={data} />
+      </MentionsInput>
+    )
+    // focus & select to show suggestions
+    wrapper.find('textarea').simulate('focus')
+    wrapper.find('textarea').simulate('select', {
+      target: { selectionStart: 1, selectionEnd: 1 },
+    })
+
+    let portalDiv = rootWrapper.find('#portalDiv').getDOMNode()
+    const suggestionsNode = portalDiv.querySelector('.testClass__suggestions')
+    console.log(suggestionsNode.className)
+    expect(suggestionsNode).toBeTruthy()
+  })
+
   it('should accept a custom regex attribute', () => {
     const data = [
       { id: 'aaaa', display: '@A' },
