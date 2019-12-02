@@ -1296,7 +1296,7 @@ function (_React$Component) {
 
       var container = _this.props.container;
       var suggestionsNode = React.createElement(SuggestionsOverlay$1, {
-        SuggestionsContainer: container,
+        container: container,
         style: _this.props.style('suggestions'),
         position: _this.state.suggestionsPosition,
         focusIndex: _this.state.focusIndex,

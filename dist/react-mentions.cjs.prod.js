@@ -864,7 +864,7 @@ var makeTriggerRegex = function(trigger) {
     }), _defineProperty(_assertThisInitialized(_this), "renderSuggestionsOverlay", function() {
       if (!isNumber(_this.state.selectionStart)) return null;
       var container = _this.props.container, suggestionsNode = React__default.createElement(SuggestionsOverlay$1, {
-        SuggestionsContainer: container,
+        container: container,
         style: _this.props.style("suggestions"),
         position: _this.state.suggestionsPosition,
         focusIndex: _this.state.focusIndex,

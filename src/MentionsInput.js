@@ -249,7 +249,7 @@ class MentionsInput extends React.Component {
     const { container } = this.props
     const suggestionsNode = (
       <SuggestionsOverlay
-        SuggestionsContainer={container}
+        container={container}
         style={this.props.style('suggestions')}
         position={this.state.suggestionsPosition}
         focusIndex={this.state.focusIndex}
