@@ -1,4 +1,4 @@
-import React, { Children, Component } from 'react'
+import React, { Children } from 'react'
 import {
   applyChangeToValue,
   countSuggestions,
@@ -246,10 +246,10 @@ class MentionsInput extends React.Component {
       // do not show suggestions when the input does not have the focus
       return null
     }
-    const { suggestionsContainer } = this.props
+    const { container } = this.props
     const suggestionsNode = (
       <SuggestionsOverlay
-        suggestionsContainer={suggestionsContainer}
+        SuggestionsContainer={container}
         style={this.props.style('suggestions')}
         position={this.state.suggestionsPosition}
         focusIndex={this.state.focusIndex}

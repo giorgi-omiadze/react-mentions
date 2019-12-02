@@ -1025,13 +1025,14 @@ function (_Component) {
           isLoading = _this$props.isLoading,
           style = _this$props.style,
           onMouseDown = _this$props.onMouseDown,
-          suggestionsContainer = _this$props.suggestionsContainer; // do not show suggestions until there is some data
+          container = _this$props.container; // do not show suggestions until there is some data
 
       if (countSuggestions(suggestions) === 0 && !isLoading) {
         return null;
       }
 
-      return suggestionsContainer ? React__default.createElement("suggestionsContainer", _extends({}, style, {
+      var SuggestionsContainer = container;
+      return SuggestionsContainer ? React__default.createElement(SuggestionsContainer, _extends({}, style, {
         onMouseDown: onMouseDown
       }), React__default.createElement("ul", _extends({
         ref: function ref(el) {
@@ -1301,9 +1302,9 @@ function (_React$Component) {
         return null;
       }
 
-      var suggestionsContainer = _this.props.suggestionsContainer;
+      var container = _this.props.container;
       var suggestionsNode = React__default.createElement(SuggestionsOverlay$1, {
-        suggestionsContainer: suggestionsContainer,
+        SuggestionsContainer: container,
         style: _this.props.style('suggestions'),
         position: _this.state.suggestionsPosition,
         focusIndex: _this.state.focusIndex,

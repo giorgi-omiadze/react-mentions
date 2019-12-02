@@ -1,4 +1,5 @@
 import { Mention, MentionsInput } from './index'
+import styled from 'styled-components'
 
 import React from 'react'
 import { makeTriggerRegex } from './MentionsInput'
@@ -114,11 +115,13 @@ describe('MentionsInput', () => {
         </div>
       </div>
     )
+    const suggestionsContainer = styled.div``
     const wrapper = mount(
       <MentionsInput
         className={'testClass'}
         value={'@'}
         suggestionsPortalHost={portalNode}
+        container={suggestionsContainer}
       >
         <Mention trigger="@" data={data} />
       </MentionsInput>

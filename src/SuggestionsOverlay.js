@@ -51,20 +51,15 @@ class SuggestionsOverlay extends Component {
   }
 
   render() {
-    const {
-      suggestions,
-      isLoading,
-      style,
-      onMouseDown,
-      suggestionsContainer,
-    } = this.props
+    const { suggestions, isLoading, style, onMouseDown, container } = this.props
 
     // do not show suggestions until there is some data
     if (countSuggestions(suggestions) === 0 && !isLoading) {
       return null
     }
-    return suggestionsContainer ? (
-      <suggestionsContainer {...style} onMouseDown={onMouseDown}>
+    const SuggestionsContainer = container
+    return SuggestionsContainer ? (
+      <SuggestionsContainer {...style} onMouseDown={onMouseDown}>
         <ul
           ref={el => {
             this.suggestionsRef = el
@@ -75,7 +70,7 @@ class SuggestionsOverlay extends Component {
         </ul>
 
         {this.renderLoadingIndicator()}
-      </suggestionsContainer>
+      </SuggestionsContainer>
     ) : (
       <div {...style} onMouseDown={onMouseDown}>
         <ul

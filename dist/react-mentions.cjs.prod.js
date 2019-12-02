@@ -663,8 +663,10 @@ var SuggestionsOverlay = function(_Component) {
   }, {
     key: "render",
     value: function() {
-      var _this = this, _this$props = this.props, suggestions = _this$props.suggestions, isLoading = _this$props.isLoading, style = _this$props.style, onMouseDown = _this$props.onMouseDown, suggestionsContainer = _this$props.suggestionsContainer;
-      return 0 !== countSuggestions(suggestions) || isLoading ? suggestionsContainer ? React__default.createElement("suggestionsContainer", _extends({}, style, {
+      var _this = this, _this$props = this.props, suggestions = _this$props.suggestions, isLoading = _this$props.isLoading, style = _this$props.style, onMouseDown = _this$props.onMouseDown, container = _this$props.container;
+      if (0 === countSuggestions(suggestions) && !isLoading) return null;
+      var SuggestionsContainer = container;
+      return SuggestionsContainer ? React__default.createElement(SuggestionsContainer, _extends({}, style, {
         onMouseDown: onMouseDown
       }), React__default.createElement("ul", _extends({
         ref: function(el) {
@@ -676,7 +678,7 @@ var SuggestionsOverlay = function(_Component) {
         ref: function(el) {
           _this.suggestionsRef = el;
         }
-      }, style("list")), this.renderSuggestions()), this.renderLoadingIndicator()) : null;
+      }, style("list")), this.renderSuggestions()), this.renderLoadingIndicator());
     }
   }, {
     key: "renderSuggestions",
@@ -861,8 +863,8 @@ var makeTriggerRegex = function(trigger) {
       "function" == typeof inputRef ? inputRef(el) : inputRef && (inputRef.current = el);
     }), _defineProperty(_assertThisInitialized(_this), "renderSuggestionsOverlay", function() {
       if (!isNumber(_this.state.selectionStart)) return null;
-      var suggestionsContainer = _this.props.suggestionsContainer, suggestionsNode = React__default.createElement(SuggestionsOverlay$1, {
-        suggestionsContainer: suggestionsContainer,
+      var container = _this.props.container, suggestionsNode = React__default.createElement(SuggestionsOverlay$1, {
+        SuggestionsContainer: container,
         style: _this.props.style("suggestions"),
         position: _this.state.suggestionsPosition,
         focusIndex: _this.state.focusIndex,
