@@ -56,19 +56,28 @@ class SuggestionsOverlay extends Component {
       isLoading,
       style,
       onMouseDown,
-      suggestionsClassName,
+      suggestionsContainer,
     } = this.props
 
     // do not show suggestions until there is some data
     if (countSuggestions(suggestions) === 0 && !isLoading) {
       return null
     }
-    return (
-      <div
-        className={suggestionsClassName}
-        {...style}
-        onMouseDown={onMouseDown}
-      >
+    return suggestionsContainer ? (
+      <suggestionsContainer {...style} onMouseDown={onMouseDown}>
+        <ul
+          ref={el => {
+            this.suggestionsRef = el
+          }}
+          {...style('list')}
+        >
+          {this.renderSuggestions()}
+        </ul>
+
+        {this.renderLoadingIndicator()}
+      </suggestionsContainer>
+    ) : (
+      <div {...style} onMouseDown={onMouseDown}>
         <ul
           ref={el => {
             this.suggestionsRef = el

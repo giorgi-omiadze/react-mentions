@@ -663,10 +663,14 @@ var SuggestionsOverlay = function(_Component) {
   }, {
     key: "render",
     value: function() {
-      var _this = this, _this$props = this.props, suggestions = _this$props.suggestions, isLoading = _this$props.isLoading, style = _this$props.style, onMouseDown = _this$props.onMouseDown, suggestionsClassName = _this$props.suggestionsClassName;
-      return 0 !== countSuggestions(suggestions) || isLoading ? React__default.createElement("div", _extends({
-        className: suggestionsClassName
-      }, style, {
+      var _this = this, _this$props = this.props, suggestions = _this$props.suggestions, isLoading = _this$props.isLoading, style = _this$props.style, onMouseDown = _this$props.onMouseDown, suggestionsContainer = _this$props.suggestionsContainer;
+      return 0 !== countSuggestions(suggestions) || isLoading ? suggestionsContainer ? React__default.createElement("suggestionsContainer", _extends({}, style, {
+        onMouseDown: onMouseDown
+      }), React__default.createElement("ul", _extends({
+        ref: function(el) {
+          _this.suggestionsRef = el;
+        }
+      }, style("list")), this.renderSuggestions()), this.renderLoadingIndicator()) : React__default.createElement("div", _extends({}, style, {
         onMouseDown: onMouseDown
       }), React__default.createElement("ul", _extends({
         ref: function(el) {
@@ -813,7 +817,6 @@ var makeTriggerRegex = function(trigger) {
   allowSuggestionsAboveCursor: PropTypes.bool,
   ignoreAccents: PropTypes.bool,
   value: PropTypes.string,
-  suggestionsClassName: PropTypes.string,
   onKeyDown: PropTypes.func,
   onSelect: PropTypes.func,
   onBlur: PropTypes.func,
@@ -858,8 +861,8 @@ var makeTriggerRegex = function(trigger) {
       "function" == typeof inputRef ? inputRef(el) : inputRef && (inputRef.current = el);
     }), _defineProperty(_assertThisInitialized(_this), "renderSuggestionsOverlay", function() {
       if (!isNumber(_this.state.selectionStart)) return null;
-      var suggestionsClassName = _this.props.suggestionsClassName, suggestionsNode = React__default.createElement(SuggestionsOverlay$1, {
-        suggestionsClassName: suggestionsClassName,
+      var suggestionsContainer = _this.props.suggestionsContainer, suggestionsNode = React__default.createElement(SuggestionsOverlay$1, {
+        suggestionsContainer: suggestionsContainer,
         style: _this.props.style("suggestions"),
         position: _this.state.suggestionsPosition,
         focusIndex: _this.state.focusIndex,
@@ -879,11 +882,7 @@ var makeTriggerRegex = function(trigger) {
         isLoading: _this.isLoading(),
         ignoreAccents: _this.props.ignoreAccents
       }, _this.props.children);
-      if (_this.props.suggestionsPortalHost) {
-        var suggestions = _this.props.suggestionsWrapper ? React__default.createElement("suggestionsWrapper", null, suggestionsNode) : suggestionsNode;
-        return ReactDOM.createPortal(suggestions, _this.props.suggestionsPortalHost);
-      }
-      return suggestionsNode;
+      return _this.props.suggestionsPortalHost ? ReactDOM.createPortal(suggestionsNode, _this.props.suggestionsPortalHost) : suggestionsNode;
     }), _defineProperty(_assertThisInitialized(_this), "renderHighlighter", function(inputStyle) {
       var _this$state = _this.state, selectionStart = _this$state.selectionStart, selectionEnd = _this$state.selectionEnd, _this$props3 = _this.props, singleLine = _this$props3.singleLine, children = _this$props3.children, value = _this$props3.value, style = _this$props3.style;
       return React__default.createElement(Highlighter$1, {

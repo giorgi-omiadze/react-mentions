@@ -1025,15 +1025,19 @@ function (_Component) {
           isLoading = _this$props.isLoading,
           style = _this$props.style,
           onMouseDown = _this$props.onMouseDown,
-          suggestionsClassName = _this$props.suggestionsClassName; // do not show suggestions until there is some data
+          suggestionsContainer = _this$props.suggestionsContainer; // do not show suggestions until there is some data
 
       if (countSuggestions(suggestions) === 0 && !isLoading) {
         return null;
       }
 
-      return React__default.createElement("div", _extends({
-        className: suggestionsClassName
-      }, style, {
+      return suggestionsContainer ? React__default.createElement("suggestionsContainer", _extends({}, style, {
+        onMouseDown: onMouseDown
+      }), React__default.createElement("ul", _extends({
+        ref: function ref(el) {
+          _this.suggestionsRef = el;
+        }
+      }, style('list')), this.renderSuggestions()), this.renderLoadingIndicator()) : React__default.createElement("div", _extends({}, style, {
         onMouseDown: onMouseDown
       }), React__default.createElement("ul", _extends({
         ref: function ref(el) {
@@ -1214,7 +1218,6 @@ var propTypes = {
   allowSuggestionsAboveCursor: PropTypes.bool,
   ignoreAccents: PropTypes.bool,
   value: PropTypes.string,
-  suggestionsClassName: PropTypes.string,
   onKeyDown: PropTypes.func,
   onSelect: PropTypes.func,
   onBlur: PropTypes.func,
@@ -1298,9 +1301,9 @@ function (_React$Component) {
         return null;
       }
 
-      var suggestionsClassName = _this.props.suggestionsClassName;
+      var suggestionsContainer = _this.props.suggestionsContainer;
       var suggestionsNode = React__default.createElement(SuggestionsOverlay$1, {
-        suggestionsClassName: suggestionsClassName,
+        suggestionsContainer: suggestionsContainer,
         style: _this.props.style('suggestions'),
         position: _this.state.suggestionsPosition,
         focusIndex: _this.state.focusIndex,
@@ -1322,9 +1325,7 @@ function (_React$Component) {
       }, _this.props.children);
 
       if (_this.props.suggestionsPortalHost) {
-        var suggestionsWrapper = _this.props.suggestionsWrapper;
-        var suggestions = suggestionsWrapper ? React__default.createElement("suggestionsWrapper", null, suggestionsNode) : suggestionsNode;
-        return ReactDOM.createPortal(suggestions, _this.props.suggestionsPortalHost);
+        return ReactDOM.createPortal(suggestionsNode, _this.props.suggestionsPortalHost);
       } else {
         return suggestionsNode;
       }

@@ -100,7 +100,7 @@ describe('MentionsInput', () => {
     expect(wrapper.find('.mi__highlighter').getDOMNode().scrollTop).toBe(23)
   })
 
-  it('should place suggestionsClassName as suggestions className', () => {
+  it('should place suggestions in suggestionsPortalHost', () => {
     let portalNode
     const rootWrapper = mount(
       <div id="root">
@@ -119,7 +119,6 @@ describe('MentionsInput', () => {
         className={'testClass'}
         value={'@'}
         suggestionsPortalHost={portalNode}
-        suggestionsClassName="suggestionsClassName"
       >
         <Mention trigger="@" data={data} />
       </MentionsInput>
@@ -132,7 +131,6 @@ describe('MentionsInput', () => {
 
     let portalDiv = rootWrapper.find('#portalDiv').getDOMNode()
     const suggestionsNode = portalDiv.querySelector('.testClass__suggestions')
-    console.log(suggestionsNode.className)
     expect(suggestionsNode).toBeTruthy()
   })
 

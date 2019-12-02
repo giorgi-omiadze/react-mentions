@@ -76,7 +76,6 @@ const propTypes = {
   ignoreAccents: PropTypes.bool,
 
   value: PropTypes.string,
-  suggestionsClassName: PropTypes.string,
   onKeyDown: PropTypes.func,
   onSelect: PropTypes.func,
   onBlur: PropTypes.func,
@@ -247,10 +246,10 @@ class MentionsInput extends React.Component {
       // do not show suggestions when the input does not have the focus
       return null
     }
-    const { suggestionsClassName } = this.props
+    const { suggestionsContainer } = this.props
     const suggestionsNode = (
       <SuggestionsOverlay
-        suggestionsClassName={suggestionsClassName}
+        suggestionsContainer={suggestionsContainer}
         style={this.props.style('suggestions')}
         position={this.state.suggestionsPosition}
         focusIndex={this.state.focusIndex}
@@ -274,14 +273,8 @@ class MentionsInput extends React.Component {
       </SuggestionsOverlay>
     )
     if (this.props.suggestionsPortalHost) {
-      const { suggestionsWrapper } = this.props
-      const suggestions = suggestionsWrapper ? (
-        <suggestionsWrapper>{suggestionsNode}</suggestionsWrapper>
-      ) : (
-        suggestionsNode
-      )
       return ReactDOM.createPortal(
-        suggestions,
+        suggestionsNode,
         this.props.suggestionsPortalHost
       )
     } else {
