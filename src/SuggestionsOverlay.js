@@ -11,6 +11,7 @@ class SuggestionsOverlay extends Component {
     suggestions: PropTypes.object.isRequired,
     focusIndex: PropTypes.number,
     scrollFocusedIntoView: PropTypes.bool,
+    isInverted: PropTypes.bool,
     isLoading: PropTypes.bool,
     onSelect: PropTypes.func,
     ignoreAccents: PropTypes.bool,
@@ -51,7 +52,14 @@ class SuggestionsOverlay extends Component {
   }
 
   render() {
-    const { suggestions, isLoading, style, onMouseDown, container } = this.props
+    const {
+      suggestions,
+      isLoading,
+      style,
+      onMouseDown,
+      container,
+      isInverted,
+    } = this.props
 
     // do not show suggestions until there is some data
     if (countSuggestions(suggestions) === 0 && !isLoading) {
@@ -59,7 +67,11 @@ class SuggestionsOverlay extends Component {
     }
     const SuggestionsContainer = container
     return SuggestionsContainer ? (
-      <SuggestionsContainer {...style} onMouseDown={onMouseDown}>
+      <SuggestionsContainer
+        isInverted={isInverted}
+        {...style}
+        onMouseDown={onMouseDown}
+      >
         <ul
           ref={el => {
             this.suggestionsRef = el

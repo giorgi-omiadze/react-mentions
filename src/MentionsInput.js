@@ -75,6 +75,7 @@ const propTypes = {
   allowSuggestionsAboveCursor: PropTypes.bool,
   ignoreAccents: PropTypes.bool,
 
+  isInverted: PropTypes.bool,
   value: PropTypes.string,
   onKeyDown: PropTypes.func,
   onSelect: PropTypes.func,
@@ -246,7 +247,7 @@ class MentionsInput extends React.Component {
       // do not show suggestions when the input does not have the focus
       return null
     }
-    const { container } = this.props
+    const { container, isInverted } = this.props
     const suggestionsNode = (
       <SuggestionsOverlay
         container={container}
@@ -268,6 +269,7 @@ class MentionsInput extends React.Component {
         }
         isLoading={this.isLoading()}
         ignoreAccents={this.props.ignoreAccents}
+        isInverted={isInverted}
       >
         {this.props.children}
       </SuggestionsOverlay>

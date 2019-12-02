@@ -1025,14 +1025,17 @@ function (_Component) {
           isLoading = _this$props.isLoading,
           style = _this$props.style,
           onMouseDown = _this$props.onMouseDown,
-          container = _this$props.container; // do not show suggestions until there is some data
+          container = _this$props.container,
+          isInverted = _this$props.isInverted; // do not show suggestions until there is some data
 
       if (countSuggestions(suggestions) === 0 && !isLoading) {
         return null;
       }
 
       var SuggestionsContainer = container;
-      return SuggestionsContainer ? React__default.createElement(SuggestionsContainer, _extends({}, style, {
+      return SuggestionsContainer ? React__default.createElement(SuggestionsContainer, _extends({
+        isInverted: isInverted
+      }, style, {
         onMouseDown: onMouseDown
       }), React__default.createElement("ul", _extends({
         ref: function ref(el) {
@@ -1129,6 +1132,7 @@ _defineProperty(SuggestionsOverlay, "propTypes", {
   suggestions: PropTypes.object.isRequired,
   focusIndex: PropTypes.number,
   scrollFocusedIntoView: PropTypes.bool,
+  isInverted: PropTypes.bool,
   isLoading: PropTypes.bool,
   onSelect: PropTypes.func,
   ignoreAccents: PropTypes.bool,
@@ -1218,6 +1222,7 @@ var propTypes = {
   EXPERIMENTAL_cutCopyPaste: PropTypes.bool,
   allowSuggestionsAboveCursor: PropTypes.bool,
   ignoreAccents: PropTypes.bool,
+  isInverted: PropTypes.bool,
   value: PropTypes.string,
   onKeyDown: PropTypes.func,
   onSelect: PropTypes.func,
@@ -1302,7 +1307,9 @@ function (_React$Component) {
         return null;
       }
 
-      var container = _this.props.container;
+      var _this$props3 = _this.props,
+          container = _this$props3.container,
+          isInverted = _this$props3.isInverted;
       var suggestionsNode = React__default.createElement(SuggestionsOverlay$1, {
         container: container,
         style: _this.props.style('suggestions'),
@@ -1322,7 +1329,8 @@ function (_React$Component) {
           });
         },
         isLoading: _this.isLoading(),
-        ignoreAccents: _this.props.ignoreAccents
+        ignoreAccents: _this.props.ignoreAccents,
+        isInverted: isInverted
       }, _this.props.children);
 
       if (_this.props.suggestionsPortalHost) {
@@ -1336,11 +1344,11 @@ function (_React$Component) {
       var _this$state = _this.state,
           selectionStart = _this$state.selectionStart,
           selectionEnd = _this$state.selectionEnd;
-      var _this$props3 = _this.props,
-          singleLine = _this$props3.singleLine,
-          children = _this$props3.children,
-          value = _this$props3.value,
-          style = _this$props3.style;
+      var _this$props4 = _this.props,
+          singleLine = _this$props4.singleLine,
+          children = _this$props4.children,
+          value = _this$props4.value,
+          style = _this$props4.style;
       return React__default.createElement(Highlighter$1, {
         ref: function ref(el) {
           _this.highlighterRef = el;
@@ -1371,9 +1379,9 @@ function (_React$Component) {
       }
 
       if (_this.props.onChange) {
-        var _this$props4;
+        var _this$props5;
 
-        return (_this$props4 = _this.props).onChange.apply(_this$props4, [event].concat(args));
+        return (_this$props5 = _this.props).onChange.apply(_this$props5, [event].concat(args));
       }
 
       if (_this.props.valueLink) {
@@ -1576,9 +1584,9 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "updateSuggestionsPosition", function () {
       var caretPosition = _this.state.caretPosition;
-      var _this$props5 = _this.props,
-          suggestionsPortalHost = _this$props5.suggestionsPortalHost,
-          allowSuggestionsAboveCursor = _this$props5.allowSuggestionsAboveCursor;
+      var _this$props6 = _this.props,
+          suggestionsPortalHost = _this$props6.suggestionsPortalHost,
+          allowSuggestionsAboveCursor = _this$props6.allowSuggestionsAboveCursor;
 
       if (!caretPosition || !_this.suggestionsRef) {
         return;
@@ -1747,9 +1755,9 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "queryData", function (query, childIndex, querySequenceStart, querySequenceEnd, plainTextValue) {
-      var _this$props6 = _this.props,
-          children = _this$props6.children,
-          ignoreAccents = _this$props6.ignoreAccents;
+      var _this$props7 = _this.props,
+          children = _this$props7.children,
+          ignoreAccents = _this$props7.ignoreAccents;
       var mentionChild = React.Children.toArray(children)[childIndex];
       var provideData = getDataProvider(mentionChild.props.data, ignoreAccents);
       var syncResult = provideData(query, _this.updateSuggestions.bind(null, _this._queryId, childIndex, query, querySequenceStart, querySequenceEnd, plainTextValue));
@@ -1937,9 +1945,9 @@ function (_React$Component) {
       var _this$state3 = this.state,
           selectionStart = _this$state3.selectionStart,
           selectionEnd = _this$state3.selectionEnd;
-      var _this$props7 = this.props,
-          value = _this$props7.value,
-          children = _this$props7.children;
+      var _this$props8 = this.props,
+          value = _this$props8.value,
+          children = _this$props8.children;
       var config = readConfigFromChildren(children);
       var markupStartIndex = mapPlainTextIndex(value, config, selectionStart, 'START');
       var markupEndIndex = mapPlainTextIndex(value, config, selectionEnd, 'END');
@@ -1960,9 +1968,9 @@ function (_React$Component) {
       var _this$state4 = this.state,
           selectionStart = _this$state4.selectionStart,
           selectionEnd = _this$state4.selectionEnd;
-      var _this$props8 = this.props,
-          children = _this$props8.children,
-          value = _this$props8.value;
+      var _this$props9 = this.props,
+          children = _this$props9.children,
+          value = _this$props9.value;
       var config = readConfigFromChildren(children);
       var markupStartIndex = mapPlainTextIndex(value, config, selectionStart, 'START');
       var markupEndIndex = mapPlainTextIndex(value, config, selectionEnd, 'END');
@@ -2004,9 +2012,9 @@ function (_React$Component) {
       var _this$state5 = this.state,
           selectionStart = _this$state5.selectionStart,
           selectionEnd = _this$state5.selectionEnd;
-      var _this$props9 = this.props,
-          children = _this$props9.children,
-          value = _this$props9.value;
+      var _this$props10 = this.props,
+          children = _this$props10.children,
+          value = _this$props10.value;
       var config = readConfigFromChildren(children);
       var markupStartIndex = mapPlainTextIndex(value, config, selectionStart, 'START');
       var markupEndIndex = mapPlainTextIndex(value, config, selectionEnd, 'END');

@@ -122,6 +122,7 @@ describe('MentionsInput', () => {
         value={'@'}
         suggestionsPortalHost={portalNode}
         container={suggestionsContainer}
+        isInverted={true}
       >
         <Mention trigger="@" data={data} />
       </MentionsInput>

@@ -663,10 +663,12 @@ var SuggestionsOverlay = function(_Component) {
   }, {
     key: "render",
     value: function() {
-      var _this = this, _this$props = this.props, suggestions = _this$props.suggestions, isLoading = _this$props.isLoading, style = _this$props.style, onMouseDown = _this$props.onMouseDown, container = _this$props.container;
+      var _this = this, _this$props = this.props, suggestions = _this$props.suggestions, isLoading = _this$props.isLoading, style = _this$props.style, onMouseDown = _this$props.onMouseDown, container = _this$props.container, isInverted = _this$props.isInverted;
       if (0 === countSuggestions(suggestions) && !isLoading) return null;
       var SuggestionsContainer = container;
-      return SuggestionsContainer ? React__default.createElement(SuggestionsContainer, _extends({}, style, {
+      return SuggestionsContainer ? React__default.createElement(SuggestionsContainer, _extends({
+        isInverted: isInverted
+      }, style, {
         onMouseDown: onMouseDown
       }), React__default.createElement("ul", _extends({
         ref: function(el) {
@@ -742,6 +744,7 @@ _defineProperty(SuggestionsOverlay, "propTypes", {
   suggestions: PropTypes.object.isRequired,
   focusIndex: PropTypes.number,
   scrollFocusedIntoView: PropTypes.bool,
+  isInverted: PropTypes.bool,
   isLoading: PropTypes.bool,
   onSelect: PropTypes.func,
   ignoreAccents: PropTypes.bool,
@@ -818,6 +821,7 @@ var makeTriggerRegex = function(trigger) {
   EXPERIMENTAL_cutCopyPaste: PropTypes.bool,
   allowSuggestionsAboveCursor: PropTypes.bool,
   ignoreAccents: PropTypes.bool,
+  isInverted: PropTypes.bool,
   value: PropTypes.string,
   onKeyDown: PropTypes.func,
   onSelect: PropTypes.func,
@@ -863,7 +867,7 @@ var makeTriggerRegex = function(trigger) {
       "function" == typeof inputRef ? inputRef(el) : inputRef && (inputRef.current = el);
     }), _defineProperty(_assertThisInitialized(_this), "renderSuggestionsOverlay", function() {
       if (!isNumber(_this.state.selectionStart)) return null;
-      var container = _this.props.container, suggestionsNode = React__default.createElement(SuggestionsOverlay$1, {
+      var _this$props3 = _this.props, container = _this$props3.container, isInverted = _this$props3.isInverted, suggestionsNode = React__default.createElement(SuggestionsOverlay$1, {
         container: container,
         style: _this.props.style("suggestions"),
         position: _this.state.suggestionsPosition,
@@ -882,11 +886,12 @@ var makeTriggerRegex = function(trigger) {
           });
         },
         isLoading: _this.isLoading(),
-        ignoreAccents: _this.props.ignoreAccents
+        ignoreAccents: _this.props.ignoreAccents,
+        isInverted: isInverted
       }, _this.props.children);
       return _this.props.suggestionsPortalHost ? ReactDOM.createPortal(suggestionsNode, _this.props.suggestionsPortalHost) : suggestionsNode;
     }), _defineProperty(_assertThisInitialized(_this), "renderHighlighter", function(inputStyle) {
-      var _this$state = _this.state, selectionStart = _this$state.selectionStart, selectionEnd = _this$state.selectionEnd, _this$props3 = _this.props, singleLine = _this$props3.singleLine, children = _this$props3.children, value = _this$props3.value, style = _this$props3.style;
+      var _this$state = _this.state, selectionStart = _this$state.selectionStart, selectionEnd = _this$state.selectionEnd, _this$props4 = _this.props, singleLine = _this$props4.singleLine, children = _this$props4.children, value = _this$props4.value, style = _this$props4.style;
       return React__default.createElement(Highlighter$1, {
         ref: function(el) {
           _this.highlighterRef = el;
@@ -909,8 +914,8 @@ var makeTriggerRegex = function(trigger) {
       return getPlainText(_this.props.value || "", readConfigFromChildren(_this.props.children));
     }), _defineProperty(_assertThisInitialized(_this), "executeOnChange", function(event) {
       for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) args[_key - 1] = arguments[_key];
-      var _this$props4, _this$props$valueLink;
-      return _this.props.onChange ? (_this$props4 = _this.props).onChange.apply(_this$props4, [ event ].concat(args)) : _this.props.valueLink ? (_this$props$valueLink = _this.props.valueLink).requestChange.apply(_this$props$valueLink, [ event.target.value ].concat(args)) : void 0;
+      var _this$props5, _this$props$valueLink;
+      return _this.props.onChange ? (_this$props5 = _this.props).onChange.apply(_this$props5, [ event ].concat(args)) : _this.props.valueLink ? (_this$props$valueLink = _this.props.valueLink).requestChange.apply(_this$props$valueLink, [ event.target.value ].concat(args)) : void 0;
     }), _defineProperty(_assertThisInitialized(_this), "handleChange", function(ev) {
       if ((document.activeElement && document.activeElement.contentDocument || document).activeElement === ev.target) {
         var value = _this.props.value || "", config = readConfigFromChildren(_this.props.children), newPlainTextValue = ev.target.value, newValue = applyChangeToValue(value, newPlainTextValue, {
@@ -992,7 +997,7 @@ var makeTriggerRegex = function(trigger) {
     }), _defineProperty(_assertThisInitialized(_this), "handleSuggestionsMouseDown", function(ev) {
       _this._suggestionsMouseDown = !0;
     }), _defineProperty(_assertThisInitialized(_this), "updateSuggestionsPosition", function() {
-      var caretPosition = _this.state.caretPosition, _this$props5 = _this.props, suggestionsPortalHost = _this$props5.suggestionsPortalHost, allowSuggestionsAboveCursor = _this$props5.allowSuggestionsAboveCursor;
+      var caretPosition = _this.state.caretPosition, _this$props6 = _this.props, suggestionsPortalHost = _this$props6.suggestionsPortalHost, allowSuggestionsAboveCursor = _this$props6.allowSuggestionsAboveCursor;
       if (caretPosition && _this.suggestionsRef) {
         var suggestions = ReactDOM.findDOMNode(_this.suggestionsRef), highlighter = ReactDOM.findDOMNode(_this.highlighterRef), caretOffsetParentRect = highlighter.getBoundingClientRect(), caretHeight = getComputedStyleLengthProp(highlighter, "font-size"), viewportRelative = {
           left: caretOffsetParentRect.left + caretPosition.left,
@@ -1060,7 +1065,7 @@ var makeTriggerRegex = function(trigger) {
         focusIndex: 0
       });
     }), _defineProperty(_assertThisInitialized(_this), "queryData", function(query, childIndex, querySequenceStart, querySequenceEnd, plainTextValue) {
-      var _this$props6 = _this.props, children = _this$props6.children, ignoreAccents = _this$props6.ignoreAccents, mentionChild = React.Children.toArray(children)[childIndex], syncResult = getDataProvider(mentionChild.props.data, ignoreAccents)(query, _this.updateSuggestions.bind(null, _this._queryId, childIndex, query, querySequenceStart, querySequenceEnd, plainTextValue));
+      var _this$props7 = _this.props, children = _this$props7.children, ignoreAccents = _this$props7.ignoreAccents, mentionChild = React.Children.toArray(children)[childIndex], syncResult = getDataProvider(mentionChild.props.data, ignoreAccents)(query, _this.updateSuggestions.bind(null, _this._queryId, childIndex, query, querySequenceStart, querySequenceEnd, plainTextValue));
       syncResult instanceof Array && _this.updateSuggestions(_this._queryId, childIndex, query, querySequenceStart, querySequenceEnd, plainTextValue, syncResult);
     }), _defineProperty(_assertThisInitialized(_this), "updateSuggestions", function(queryId, childIndex, query, querySequenceStart, querySequenceEnd, plainTextValue, results) {
       if (queryId === _this._queryId) {
@@ -1152,7 +1157,7 @@ var makeTriggerRegex = function(trigger) {
     value: function(event) {
       if (event.target === this.inputRef && this.supportsClipboardActions(event)) {
         event.preventDefault();
-        var _this$state3 = this.state, selectionStart = _this$state3.selectionStart, selectionEnd = _this$state3.selectionEnd, _this$props7 = this.props, value = _this$props7.value, children = _this$props7.children, config = readConfigFromChildren(children), markupStartIndex = mapPlainTextIndex(value, config, selectionStart, "START"), markupEndIndex = mapPlainTextIndex(value, config, selectionEnd, "END"), pastedMentions = event.clipboardData.getData("text/react-mentions"), pastedData = event.clipboardData.getData("text/plain"), newValue = spliceString(value, markupStartIndex, markupEndIndex, pastedMentions || pastedData).replace(/\r/g, ""), newPlainTextValue = getPlainText(newValue, config), eventMock = {
+        var _this$state3 = this.state, selectionStart = _this$state3.selectionStart, selectionEnd = _this$state3.selectionEnd, _this$props8 = this.props, value = _this$props8.value, children = _this$props8.children, config = readConfigFromChildren(children), markupStartIndex = mapPlainTextIndex(value, config, selectionStart, "START"), markupEndIndex = mapPlainTextIndex(value, config, selectionEnd, "END"), pastedMentions = event.clipboardData.getData("text/react-mentions"), pastedData = event.clipboardData.getData("text/plain"), newValue = spliceString(value, markupStartIndex, markupEndIndex, pastedMentions || pastedData).replace(/\r/g, ""), newPlainTextValue = getPlainText(newValue, config), eventMock = {
           target: _objectSpread$2({}, event.target, {
             value: newValue
           })
@@ -1163,7 +1168,7 @@ var makeTriggerRegex = function(trigger) {
   }, {
     key: "saveSelectionToClipboard",
     value: function(event) {
-      var _this$state4 = this.state, selectionStart = _this$state4.selectionStart, selectionEnd = _this$state4.selectionEnd, _this$props8 = this.props, children = _this$props8.children, value = _this$props8.value, config = readConfigFromChildren(children), markupStartIndex = mapPlainTextIndex(value, config, selectionStart, "START"), markupEndIndex = mapPlainTextIndex(value, config, selectionEnd, "END");
+      var _this$state4 = this.state, selectionStart = _this$state4.selectionStart, selectionEnd = _this$state4.selectionEnd, _this$props9 = this.props, children = _this$props9.children, value = _this$props9.value, config = readConfigFromChildren(children), markupStartIndex = mapPlainTextIndex(value, config, selectionStart, "START"), markupEndIndex = mapPlainTextIndex(value, config, selectionEnd, "END");
       event.clipboardData.setData("text/plain", event.target.value.slice(selectionStart, selectionEnd)), 
       event.clipboardData.setData("text/react-mentions", value.slice(markupStartIndex, markupEndIndex));
     }
@@ -1183,7 +1188,7 @@ var makeTriggerRegex = function(trigger) {
     value: function(event) {
       if (event.target === this.inputRef && this.supportsClipboardActions(event)) {
         event.preventDefault(), this.saveSelectionToClipboard(event);
-        var _this$state5 = this.state, selectionStart = _this$state5.selectionStart, selectionEnd = _this$state5.selectionEnd, _this$props9 = this.props, children = _this$props9.children, value = _this$props9.value, config = readConfigFromChildren(children), markupStartIndex = mapPlainTextIndex(value, config, selectionStart, "START"), markupEndIndex = mapPlainTextIndex(value, config, selectionEnd, "END"), newValue = [ value.slice(0, markupStartIndex), value.slice(markupEndIndex) ].join(""), newPlainTextValue = getPlainText(newValue, config), eventMock = {
+        var _this$state5 = this.state, selectionStart = _this$state5.selectionStart, selectionEnd = _this$state5.selectionEnd, _this$props10 = this.props, children = _this$props10.children, value = _this$props10.value, config = readConfigFromChildren(children), markupStartIndex = mapPlainTextIndex(value, config, selectionStart, "START"), markupEndIndex = mapPlainTextIndex(value, config, selectionEnd, "END"), newValue = [ value.slice(0, markupStartIndex), value.slice(markupEndIndex) ].join(""), newPlainTextValue = getPlainText(newValue, config), eventMock = {
           target: _objectSpread$2({}, event.target, {
             value: newPlainTextValue
           })
